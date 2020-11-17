@@ -1,6 +1,7 @@
 FROM python:3.8
 
-COPY requirements.txt ./
+COPY requirements.txt .
+COPY *.py .
 
 RUN curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && curl -s https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
@@ -10,5 +11,5 @@ RUN curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && pip3 install --no-cache-dir -r ./requirements.txt \
  && useradd -u 1000 -ms /bin/bash worker
 
-#CMD python ./main.py
+CMD python -i ./init.py
 
