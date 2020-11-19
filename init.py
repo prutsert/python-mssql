@@ -1,6 +1,6 @@
+import pyodbc
 
 class MsSql():
-    engine = None
     conf = {}
 
     def __init__(self):
@@ -21,19 +21,15 @@ class MsSql():
     def set_password(self, pw):
         self.conf["password"] = pw
 
-    def engine(self):
-        if self.engine == None:
-            import urllib.parse
-            connectstring = urllib.parse.quote_plus(
-                "DRIVER=ODBC Driver 17 for SQL Server;SERVER={0};PORT=1433;DATABASE={1};"
-                "UID={2};PWD={3};".format(
-                    self.conf["server"], self.conf["database"], self.conf["username"], self.conf["password"]
-                )
+    def connect(self):
+        connectstring = ( "DRIVER=ODBC Driver 17 for SQL Server;"
+            "SERVER={0};DATABASE={1};UID={2};PWD={3};"
+            .format(
+                self.conf["server"], self.conf["database"], self.conf["username"], self.conf["password"]
             )
-            dburl = "mssql+pyodbc:///?odbc_connect={}".format(connectstring)
-            self.engine = create_engine(dburl, pool_pre_ping=True)
-
-        return self.engine
+        )
+        connection = pyodbc.connect(connectstring)
+        return connection
 
 mssql = MsSql()
 
