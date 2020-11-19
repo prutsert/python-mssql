@@ -7,7 +7,7 @@ class MsSql():
 
         import os
         for k in ( key for key in os.environ.keys() if key.startswith("MSSQL_")):
-            self.conf[ k[6:] ] = os.environ.get(k)
+            self.conf[ k[6:].lower() ] = os.environ.get(k)
 
     def set_server(self, server):
         self.conf["server"] = server
