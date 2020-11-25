@@ -1,3 +1,4 @@
+mssql-cli
 pyodbc
 SQLAlchemy
 

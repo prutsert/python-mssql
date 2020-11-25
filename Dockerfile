@@ -4,7 +4,7 @@ COPY requirements.txt .
 COPY *.py .
 
 RUN apt-get update \
- && apt-get install -y curl apt-transport-https gnupg2 unixodbc-dev build-essential \
+ && apt-get install -y curl apt-transport-https gnupg2 unixodbc-dev build-essential libicu63 \
  && rm -rf /var/lib/apt/lists/* \
  && curl -s https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && curl -s https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \

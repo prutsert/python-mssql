@@ -2,6 +2,9 @@
 
 Image for testing Microsoft SQL Server / Azure SQL connections
 
+This image contains:
+- MS SQL ODBC Driver 17
+- MS SQL tools (sqlcmd and mssql-cli)
 
 # Usage
 
@@ -43,25 +46,30 @@ This will give you the option to start Python prompt with the `mssql` object, as
 python -i init.py
 ```
 
-But it will also allow you to run sqlcmd:
+```python
+mssql.set_server("myserver")
+mssql.set_database("MyDb")
+mssql.set_username("justme")
+mssql.set_password("MyVerySecretPassword")
+conn = mssql.connect()
+```
+
+Or run sqlcmd:
 ```bash
 /opt/mssql-tools/bin/sqlcmd -S ${MSSQL_SERVER} -d ${MSSQL_DATABASE} -U ${MSSQL_USERNAME}
 ```
 
-Or install mssql-cli:
+Or run mssql-cli:
 ```bash
-apt-get update && apt-get install libicu63
-pip install mssql-cli
-
 mssql-cli -S ${MSSQL_SERVER} -d ${MSSQL_DATABASE} -U ${MSSQL_USERNAME}
 ```
 
 # LICENSE
 
-I don't care. But by using this image, you agree to Microsofts license agreement as described in MICROSOFT_SOFTWARE_LICENSE_TERMS.txt
+I don't care. But by using this image, I guess you agree to Microsofts license agreement as described in MICROSOFT_SOFTWARE_LICENSE_TERMS.txt
 
 
-# TODO
+# KNOWN ISSUES
 
-- Characters `[]{}(),;?*=!@` in passwords aren't escaped in the ODBC connectstring, so trying to connect with one of these will fail.
+- Character `}` in passwords (or usernames if you are that creative) aren't escaped in the ODBC connectstring, so trying to connect with this will fail, unless you escape it yourself.
 
